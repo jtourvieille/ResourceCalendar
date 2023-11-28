@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResCalApp", "ResCalApp\ResCalApp.csproj", "{22ECA3AF-EDA9-40C6-9FC6-11CC9BA60EEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResCalApp.Server", "ResCalApp\Server\ResCalApp.Server.csproj", "{90F99389-A4B6-425A-9B85-6A77D5D79A9E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResCalApp.Client", "ResCalApp\Client\ResCalApp.Client.csproj", "{45500FB9-96CF-4E22-8D06-7DD55EA7463B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResCalApp.Shared", "ResCalApp\Shared\ResCalApp.Shared.csproj", "{32790521-A989-4F21-891F-10BA357885FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +15,23 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{22ECA3AF-EDA9-40C6-9FC6-11CC9BA60EEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{22ECA3AF-EDA9-40C6-9FC6-11CC9BA60EEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{22ECA3AF-EDA9-40C6-9FC6-11CC9BA60EEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{22ECA3AF-EDA9-40C6-9FC6-11CC9BA60EEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90F99389-A4B6-425A-9B85-6A77D5D79A9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90F99389-A4B6-425A-9B85-6A77D5D79A9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90F99389-A4B6-425A-9B85-6A77D5D79A9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90F99389-A4B6-425A-9B85-6A77D5D79A9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45500FB9-96CF-4E22-8D06-7DD55EA7463B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45500FB9-96CF-4E22-8D06-7DD55EA7463B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45500FB9-96CF-4E22-8D06-7DD55EA7463B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45500FB9-96CF-4E22-8D06-7DD55EA7463B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32790521-A989-4F21-891F-10BA357885FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32790521-A989-4F21-891F-10BA357885FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32790521-A989-4F21-891F-10BA357885FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32790521-A989-4F21-891F-10BA357885FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {6F1865F7-70C0-4D30-BACF-5ED772FF8A61}
+		SolutionGuid = {2994B2BD-37AB-4D40-A29E-2A2A6CBE5BA3}
 	EndGlobalSection
 EndGlobal

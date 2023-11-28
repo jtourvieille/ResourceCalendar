@@ -1,4 +1,4 @@
-﻿@using ResCalApp.Models
+﻿@using ResCalApp.Shared.Models
 @inject DialogService DialogService
 
 <RadzenTemplateForm TItem="Appointment" Data="@model" Submit=@OnSubmit>
@@ -43,12 +43,16 @@
     [Parameter]
     public DateTime End { get; set; }
 
+    [Parameter]
+    public string CalendarId { get; set; }
+
     Appointment model = new Appointment();
 
     protected override void OnParametersSet()
     {
         model.Start = Start;
         model.End = End;
+        model.CalendarId = CalendarId;
     }
 
     void OnSubmit(Appointment model)

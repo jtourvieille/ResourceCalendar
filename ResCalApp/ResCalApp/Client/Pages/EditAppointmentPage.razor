@@ -1,4 +1,4 @@
-﻿@using ResCalApp.Models
+﻿@using ResCalApp.Shared.Models
 @inject DialogService DialogService
 
 <RadzenTemplateForm TItem="Appointment" Data="@model" Submit=@OnSubmit>
@@ -32,8 +32,12 @@
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col">
-            <RadzenButton ButtonType="ButtonType.Submit" Text="Save" />
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
+                <RadzenButton ButtonType="ButtonType.Submit" Text="Save" />
+                <RadzenButton Text="Delete" ButtonStyle="ButtonStyle.Danger" Click="OnDeleteClick"></RadzenButton>
+            </RadzenStack>
         </div>
+
     </div>
 </RadzenTemplateForm>
 @code {
@@ -51,4 +55,11 @@
     {
         DialogService.Close(model);
     }
-}
+
+    private void OnDeleteClick()
+    {
+        model.Id = -1;
+        DialogService.Close(model);
+    }
+
+} 

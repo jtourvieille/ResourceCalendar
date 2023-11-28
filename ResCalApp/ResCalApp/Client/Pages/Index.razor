@@ -1,0 +1,69 @@
+﻿@page "/{CalendarId}"
+@using ResCalApp.Shared.Models
+@using System.Text.Json.Serialization
+
+@inject DialogService DialogService
+@inject HttpClient Http
+
+<RadzenScheduler @ref=@scheduler style="height: 768px;" TItem="Appointment" Data=@appointments StartProperty="Start" EndProperty="End"
+                 TextProperty="Text" SelectedIndex="0" 
+                 SlotSelect=@OnSlotSelect AppointmentSelect=@OnAppointmentSelect>
+    <RadzenWeekView />
+</RadzenScheduler>
+
+@code
+{
+    RadzenScheduler<Appointment> scheduler;
+
+    IEnumerable<Appointment> appointments;
+
+    private async Task ReloadAppointments()
+    {
+        appointments = await Http.GetFromJsonAsync<IEnumerable<Appointment>>($"api/Appointments?calendarId={CalendarId}")
+                       ?? new List<Appointment>();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await ReloadAppointments();
+    }
+    
+    [Parameter]
+    public string CalendarId { get; set; }
+
+    async Task OnSlotSelect(SchedulerSlotSelectEventArgs args)
+    {
+        Appointment data = await DialogService.OpenAsync<AddAppointmentPage>("Add Appointment",
+            new Dictionary<string, object> { { "Start", args.Start }, { "End", args.End }, { "CalendarId", CalendarId } });
+
+        if (data != null)
+        {
+            await Http.PostAsJsonAsync("api/Appointments", data);
+            // reload appointments?
+            await ReloadAppointments();
+            await scheduler.Reload();
+        }
+    }
+
+    async Task OnAppointmentSelect(SchedulerAppointmentSelectEventArgs<Appointment> args)
+    {
+        int previousId = args.Data.Id;
+
+        Appointment data = await DialogService.OpenAsync<EditAppointmentPage>("Edit Appointment", new Dictionary<string, object> { { "Appointment", args.Data } });
+
+        if (data is not null)
+        {
+            if (data.Id == -1)
+            {
+                await Http.DeleteAsync($"api/Appointments?appointmentId={previousId}");
+            }
+            else
+            {
+                await Http.PutAsJsonAsync("api/Appointments", data);
+            }
+            
+            await ReloadAppointments();
+            await scheduler.Reload();
+        }
+    }
+}
