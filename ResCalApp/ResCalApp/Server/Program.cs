@@ -1,11 +1,18 @@
+using Microsoft.EntityFrameworkCore;
 using ResCalApp.Server.Appointment;
+using ResCalApp.Server.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
-builder.Services.AddSingleton<IAppointmentService, AppointmentService>();
+builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+
+builder.Services.AddDbContext<AppointmentDbContext>(options =>
+{
+    options.UseSqlite("Data Source=appointments.db");
+});
 
 var app = builder.Build();
 
