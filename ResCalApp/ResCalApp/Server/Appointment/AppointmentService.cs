@@ -15,21 +15,41 @@ public class AppointmentService : IAppointmentService
 
     public async Task<IEnumerable<Appointment>> GetAsync(string calendarId)
     {
-        return await _appointmentDbContext.Appointments.Where(a => a.CalendarId == calendarId).ToListAsync();
+        var appointments = await _appointmentDbContext.Appointments
+            .Where(a => a.CalendarId == calendarId)
+            .ToListAsync();
+        
+        appointments.ForEach(a=>
+            {
+                a.Start = TimeZoneInfo.ConvertTimeFromUtc(a.Start,
+                        TimeZoneInfo.FindSystemTimeZoneById("Romance Standard Time"));
+
+                a.End = TimeZoneInfo.ConvertTimeFromUtc(a.End,
+                    TimeZoneInfo.FindSystemTimeZoneById("Romance Standard Time"));
+            });
+
+        return appointments;
     }
 
     public async Task AddAsync(Appointment appointment)
     {
+        appointment.Start = TimeZoneInfo.ConvertTimeToUtc(appointment.Start);
+        appointment.End = TimeZoneInfo.ConvertTimeToUtc(appointment.End);
         await _appointmentDbContext.Appointments.AddAsync(appointment);
         await _appointmentDbContext.SaveChangesAsync();
     }
 
     public async Task EditAsync(Appointment appointment)
     {
+        appointment.Start = TimeZoneInfo.ConvertTimeToUtc(appointment.Start);
+        appointment.End = TimeZoneInfo.ConvertTimeToUtc(appointment.End);
+
         var app = await _appointmentDbContext.Appointments.FirstAsync(a => a.Id == appointment.Id);
+
         app.End = appointment.End;
         app.Start = appointment.Start;
         app.Text = appointment.Text;
+        
         await _appointmentDbContext.SaveChangesAsync();
     }
 
